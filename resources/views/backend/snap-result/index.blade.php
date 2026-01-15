@@ -13,10 +13,9 @@
 <div class="row mt-4">    
     <div class="col-12">
         <div class="card">
-            <div class="card-body">
-                    
+            <div class="card-body">                  
 
-                <form action="{{ route('backend.xat-student-result') }}" method="get">
+                <form action="{{ route('backend.snap-student-result') }}" method="get">
                     <div class="row mb-3 mt-3">
                         <div class="col-md-3">
                             <div class="filter-wrapper">
@@ -30,7 +29,7 @@
                         <div class="col-md-2 mt-4">
                             <div class="book-filter-btn">
                                 <button type="submit" class="btn btn-success" name="export" value="1">Export</button>
-                                <a href="{{route('backend.xat-student-result')}}" class="btn btn-primary">Reset</a>
+                                <a href="{{route('backend.snap-student-result')}}" class="btn btn-primary">Reset</a>
                             </div>
                         </div>
                     </div>
@@ -43,37 +42,33 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Whatsapp Number</th>
-                                <th>Candidate Name</th>
-                                <th>Application No</th>
-                                {{-- <th>Shift</th>
-                                <th>Test Date</th>
-                                <th>Test Time</th> --}}
-                                <th>Test Center Name</th>
+                                <th>Category</th>
+                                <th>Overall Percentile</th>
+                                <th>Pdf Path</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($results as $record)
-                                @php
-                                    $result = $record->decoded_data;
-                                @endphp
                                 <tr>
-                                    <td>{{ $record->user->name ?? 'N/A'}}</td>
-                                    <td>{{ $record->user->email ?? 'N/A'}}</td>
-                                    <td>{{ $record->user->whatsapp_number ?? 'N/A'}}</td>
-                                    <td>{{ $result->details->{'Candidate Name'} ?? 'N/A' }}</td>
-                                    <td>{{ $result->details->{'XAT ID'} ?? 'N/A' }}</td>
-                                    {{-- <td>{{ $result->details->Shift ?? 'N/A' }}</td>
-                                    <td>{{ $result->details->{'Test Date'} ?? 'N/A' }}</td>
-                                    <td>{{ $result->details->{'Test Time'} ?? 'N/A' }}</td> --}}
-                                    <td>{{ $result->details->{'TC Name'} ?? 'N/A' }}</td>
+                                    <td>{{ $record->snap_user->name ?? 'N/A'}}</td>
+                                    <td>{{ $record->snap_user->email ?? 'N/A'}}</td>
+                                    <td>{{ $record->snap_user->whatsapp_number ?? 'N/A'}}</td>
+                                    <td>{{ $record->category ?? 'N/A' }}</td>
+                                    <td>{{ $record->overall_percentile ?? 'N/A' }}</td>
+                                    <td>
+                                        @if(!empty($record->pdf_path))
+                                            <a href="{{ route('backend.snap-pdf-view', $record->id) }}"
+                                            target="_blank"
+                                            class="text-blue-600 hover:underline">
+                                                View PDF
+                                            </a>
+                                        @else
+                                            <span class="text-gray-400"></span>
+                                        @endif
                                     <td>
                                         <div class="button-items d-flex">
-                                            <a class="btn btn-primary btn-sm mx-2 text-white" href="{{ route('backend.student-result.show', $record->id) }}"><i class="material-icons-outlined pages-icon">visibility</i></a>
-                                            {{-- <a class="btn btn-success btn-sm mx-2 text-white" href="{{ route('backend.student-result.export', $record->id) }}">
-                                                <i class="material-icons-outlined pages-icon">download</i>
-                                            </a> --}}
-                                            
+                                            <a class="btn btn-primary btn-sm mx-2 text-white" href="{{ route('backend.snap-student-result.show', $record->id) }}"><i class="material-icons-outlined pages-icon">visibility</i></a>
                                         </div>
                                     </td>
                                 </tr>

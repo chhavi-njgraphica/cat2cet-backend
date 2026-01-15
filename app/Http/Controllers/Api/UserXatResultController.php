@@ -18,13 +18,13 @@ class UserXatResultController extends Controller
 
         if (
             empty($url) ||
-            !strstr(parse_url($url, PHP_URL_HOST), 'cdn3.digialm.com') ||
+            !strstr(parse_url($url, PHP_URL_HOST), 'g21.digialm.com') ||
             !strstr($url, 'touchstone/AssessmentQPHTMLMode1')
         ) {
             return response()->json(['success' => false, 'error' => 'Enter a valid URL. ex: https://cdn.digialm.com/.../.html']);
         }
 
-        $existing = UserXatResult::where('url', $url)->first();
+        $existing = UserXatResult::where('user_id', $request->user_id)->first();
 
         $result = getXatStudentResult($url);
 
@@ -38,17 +38,18 @@ class UserXatResultController extends Controller
         $data = json_encode($result);
 
         if ($existing) {
-            $existing->data = $data;
-            $existing->user_id = $request->user_id;
+            // same user → replace url
             $existing->url = $url;
+            $existing->data = $data;
             $existing->save();
         } else {
-            $cat_result = new UserXatResult;
-            $cat_result->url = $url;
-            $cat_result->user_id = $request->user_id;
-            $cat_result->data = $data;
-            $cat_result->save();
-        }        
+            // new user → create new entry
+            UserXatResult::create([
+                'user_id' => $request->user_id,
+                'url' => $url,
+                'data' => $data,
+            ]);
+        }    
 
         // Continue processing percentile and suggested colleges
         $percentileString = $result['percentile'] ?? null;
@@ -113,7 +114,7 @@ class UserXatResultController extends Controller
 
         if (
             empty($url) ||
-            !strstr(parse_url($url, PHP_URL_HOST), 'cdn3.digialm.com') ||
+            !strstr(parse_url($url, PHP_URL_HOST), 'g21.digialm.com') ||
             !strstr($url, 'touchstone/AssessmentQPHTMLMode1')
         ) {
             return response()->json(['success' => false, 'error' => 'Enter a valid URL.']);

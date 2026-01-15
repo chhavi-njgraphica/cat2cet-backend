@@ -41,6 +41,12 @@
                                     <td>
                                         <div class="button-items d-flex">
                                             <a class="btn btn-primary btn-sm mx-2 text-white" href="{{ route('backend.xat-colleges.edit', $college->id) }}"><i class="material-icons-outlined pages-icon">edit</i></a>
+                                            <form action="{{route('backend.xat-colleges.destroy',
+                                                $college->id)}}" method="post" onsubmit="return confirm('Are You Sure?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger waves-effect waves-light"><i class="material-icons-outlined pages-icon">delete</i></button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

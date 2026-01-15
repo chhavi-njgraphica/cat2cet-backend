@@ -104,7 +104,7 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="">
+                        <a href="{{route('backend.snap-student-result')}}">
                             <div class="parent-icon"><i
                                     class="material-icons-outlined">leaderboard</i>
                             </div>

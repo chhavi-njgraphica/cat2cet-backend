@@ -69,8 +69,8 @@ function getXatStudentResult($url) {
             $total_marks  += $_total_marks;
         }
     }
-
-    $percentile = @getXatScorePercentile($obtain_marks);
+    $percentile_obtain_marks = round($obtain_marks);
+    $percentile = @getXatScorePercentile($percentile_obtain_marks);
 
     return [
         'data'             => $data,
@@ -464,278 +464,92 @@ function parseXatMCQ_Question($question, $questionId, $texts) {
 // }
 
 
-function getXatScorePercentile($score){
-    $pp = "0%tile - 10%tile";
-    
-    if ($score > 132 && $score < 204) {
-            $pp = "100%tile";
-    }else if ($score == 131) {
-        $pp = "99.99%tile";
-    }else if ($score == 130) {
-        $pp = "99.98%tile";
-    } else if ($score == 129) {
-        $pp = "99.97%tile";
-    } else if ($score == 128) {
-        $pp = "99.96%tile";
-    } else if ($score == 127) {
-        $pp = "99.96%tile";
-    } else if ($score == 126) {
-        $pp = "99.95%tile";
-    } else if ($score == 125) {
-        $pp = "99.94%tile";
-    } else if ($score == 124) {
-        $pp = "99.93%tile";
-    } else if ($score == 123 || $score == 122) {
-        $pp = "99.92%tile";
-    } else if ($score == 121) {
-        $pp = "99.91%tile";
-    } else if ($score == 120) {
-        $pp = "99.90%tile";
-    } else if ($score == 119) {
-        $pp = "99.98%tile";
-    } else if ($score == 118) {
-        $pp = "99.85%tile";
-    } else if ($score == 117) {
-        $pp = "99.83%tile";
-    } else if ($score == 116) {
-        $pp = "99.80%tile";
-    } else if ($score == 115) {
-        $pp = "99.78%tile";
-    } else if ($score == 114) {
-        $pp = "99.75%tile";
-    } else if ($score == 113) {
-        $pp = "99.73%tile";
-    } else if ($score == 112) {
-        $pp = "99.70%tile";
-    } else if ($score == 111) {
-        $pp = "99.68%tile";
-    } else if ($score == 110) {
-        $pp = "99.65%tile";
-    } else if ($score == 109) {
-        $pp = "99.62%tile";
-    } else if ($score == 108) {
-        $pp = "99.60%tile";
-    } else if ($score == 107) {
-        $pp = "99.57%tile";
-    } else if ($score == 106) {
-        $pp = "99.55%tile";
-    } else if ($score == 105) {
-        $pp = "99.52%tile";
-    } else if ($score == 104) {
-        $pp = "99.50%tile";
-    } else if ($score == 103) {
-        $pp = "99.47%tile";
-    } else if ($score == 102) {
-        $pp = "99.44%tile";
-    } else if ($score == 101) {
-        $pp = "99.41%tile";
-    } else if ($score == 100) {
-        $pp = "99.38%tile";
-    } else if ($score == 99) {
-        $pp = "99.35%tile";
-    } else if ($score == 98) {
-        $pp = "99.32%tile";
-    } else if ($score == 97) {
-        $pp = "99.29%tile";
-    } else if ($score == 96) {
-        $pp = "99.26%tile";
-    } else if ($score == 95) {
-        $pp = "99.23%tile";
-    }else if ($score == 94) {
-        $pp = "99.20%tile";
-    }else if ($score == 93) {
-        $pp = "99.17%tile";
-    }else if ($score == 92) {
-        $pp = "99.14%tile";
-    }else if ($score == 91) {
-        $pp = "99.11%tile";
-    }else if ($score == 90) {
-        $pp = "99.08%tile";
-    }else if ($score == 89) {
-        $pp = "99.05%tile";
-    }else if ($score == 88) {
-        $pp = "99.02%tile";
-    } else if ($score == 87) {
-        $pp = "98.99%tile";
-    } else if ($score == 86) {
-        $pp = "98.84%tile";
-    } else if ($score == 85) {
-        $pp = "98.69%tile";
-    } else if ($score == 84) {
-        $pp = "98.54%tile";
-    } else if ($score == 83) {
-        $pp = "99.39%tile";
-    } else if ($score == 82) {
-        $pp = "98.24%tile";
-    } else if ($score == 81) {
-        $pp = "99.09%tile";
-    } else if ($score == 80) {
-        $pp = "97.94%tile";
-    } else if ($score == 79) {
-        $pp = "97.64%tile";
-    } else if ($score == 78) {
-        $pp = "97.34%tile";
-    } else if ($score == 77) {
-        $pp = "97.04%tile";
-    } else if ($score == 76) {
-        $pp = "96.74%tile";
-    } else if ($score == 75) {
-        $pp = "96.44%tile";
-    } else if ($score == 74) {
-        $pp = "96.14%tile";
-    } else if ($score == 73) {
-        $pp = "95.84%tile";
-    } else if ($score == 72) {
-        $pp = "95.54%tile";
-    } else if ($score == 71) {
-        $pp = "95.24%tile";
-    } else if ($score == 70) {
-        $pp = "94.94%tile";
-    } else if ($score == 69) {
-        $pp = "94.69%tile";
-    } else if ($score == 68) {
-        $pp = "94.44%tile";
-    } else if ($score == 67) {
-        $pp = "94.19%tile";
-    } else if ($score == 66) {
-        $pp = "93.94%tile";
-    } else if ($score == 65) {
-        $pp = "93.69%tile";
-    } else if ($score == 64) {
-        $pp = "93.44%tile";
-    } else if ($score == 63) {
-        $pp = "93.19%tile";
-    } else if ($score == 62) {
-        $pp = "92.94%tile";
-    } else if ($score == 61) {
-        $pp = "92.69%tile";
-    } else if ($score == 60) {
-        $pp = "92.44%tile";
-    } else if ($score == 59) {
-        $pp = "92.19%tile";
-    } else if ($score == 58) {
-        $pp = "91.94%tile";
-    } else if ($score == 57) {
-        $pp = "91.69%tile";
-    } else if ($score == 56) {
-        $pp = "91.44%tile";
-    } else if ($score == 55) {
-        $pp = "91.19%tile";
-    } else if ($score == 54) {
-        $pp = "90.94%tile";
-    } else if ($score == 53) {
-        $pp = "90.69%tile";
-    } else if ($score == 52) {
-        $pp = "90.44%tile";
-    } else if ($score == 51) {
-        $pp = "89.64%tile";
-    } else if ($score == 50) {
-        $pp = "88.84%tile";
-    } else if ($score == 49) {
-        $pp = "88.04%tile";
-    } else if ($score == 48) {
-        $pp = "87.24%tile";
-    } else if ($score == 47) {
-        $pp = "86.44%tile";
-    } else if ($score == 46) {
-        $pp = "85.64%tile";
-    } else if ($score == 45) {
-        $pp = "85.00%tile";
-    } else if ($score == 44) {
-        $pp = "84.02%tile";
-    } else if ($score == 43) {
-        $pp = "83.04%tile";
-    } else if ($score == 42) {
-        $pp = "82.06%tile";
-    } else if ($score == 41) {
-        $pp = "81.08%tile";
-    } else if ($score == 40) {
-        $pp = "80.10%tile";
-    } else if ($score == 39) {
-        $pp = "79.40%tile";
-    } else if ($score == 38) {
-        $pp = "78.70%tile";
-    } else if ($score == 37) {
-        $pp = "78.00%tile";
-    } else if ($score == 36) {
-        $pp = "77.30%tile";
-    } else if ($score == 35) {
-        $pp = "76.60%tile";
-    } else if ($score == 34) {
-        $pp = "75.90%tile";
-    } else if ($score == 33) {
-        $pp = "75.20%tile";
-    } else if ($score == 32) {
-        $pp = "74.50%tile";
-    } else if ($score == 31) {
-        $pp = "72.90%tile";
-    } else if ($score == 30) {
-        $pp = "71.30%tile";
-    } else if ($score == 29) {
-        $pp = "69.70%tile";
-    } else if ($score == 28) {
-        $pp = "68.10%tile";
-    } else if ($score == 27) {
-        $pp = "66.50%tile";
-    } else if ($score == 26) {
-        $pp = "64.90%tile";
-    } else if ($score == 25) {
-        $pp = "63.30%tile";
-    } else if ($score == 24) {
-        $pp = "61.70%tile";
-    } else if ($score == 23) {
-        $pp = "60.10%tile";
-    } else if ($score == 22) {
-        $pp = "58.50%tile";
-    } else if ($score == 21) {
-        $pp = "56.90%tile";
-    } else if ($score == 20) {
-        $pp = "55.30%tile";
-    } else if ($score == 19) {
-        $pp = "53.70%tile";
-    } else if ($score == 18) {
-        $pp = "52.10%tile";
-    } else if ($score == 17) {
-        $pp = "50.50%tile";
-    } else if ($score == 16) {
-        $pp = "48.90%tile";
-    } else if ($score == 15) {
-        $pp = "47.30%tile";
-    } else if ($score == 14) {
-        $pp = "45.70%tile";
-    } else if ($score == 13) {
-        $pp = "44.10%tile";
-    } else if ($score == 12) {
-        $pp = "42.50%tile";
-    } else if ($score == 11) {
-        $pp = "40.90%tile";
-    } else if ($score == 10) {
-        $pp = "39.30%tile";
-    } else if ($score == 9) {
-        $pp = "37.70%tile";
-    } else if ($score == 8) {
-        $pp = "36.10%tile";
-    } else if ($score == 7) {
-        $pp = "34.50%tile";
-    } else if ($score == 6) {
-        $pp = "32.90%tile";
-    } else if ($score == 5) {
-        $pp = "31.30%tile";
-    } else if ($score == 4) {
-        $pp = "29.70%tile";
-    } else if ($score == 3) {
-        $pp = "28.10%tile";
-    } else if ($score == 2) {
-        $pp = "26.50%tile";
-    } else if ($score == 1) {
-        $pp = "24.90%tile";
-    } else if ($score == 0) {
-        $pp = "23.30%tile";
-    } else if ($score >= -68 && $score <= -1) {
-            $pp = "0%tile";
-    }
-    return $pp;
+// function getXatScorePercentile($score)
+// {
+//     $pp = "50%tile";
+
+//     if ($score >= 37) {
+//         $pp = "99%tile";
+//     } else if ($score >= 33) {
+//         $pp = "98%tile";
+//     } else if ($score == 32) {
+//         $pp = "97%tile";
+//     } else if ($score == 31) {
+//         $pp = "96%tile";
+//     } else if ($score >= 29 && $score <= 30) {
+//         $pp = "95%tile";
+//     } else if ($score >= 27 && $score <= 28) {
+//         $pp = "90%tile";     
+//     }else if ($score == 26) {
+//         $pp = "88%tile";  
+//     }else if ($score == 25) {
+//         $pp = "87%tile";   
+//     }else if ($score == 24) {
+//         $pp = "86%tile"; 
+//     } else if ($score >= 22 && $score <= 23) {
+//         $pp = "85%tile";
+//     }else if ($score == 21) {
+//         $pp = "82%tile"; 
+//     } else if ($score >= 19 && $score <= 20) {
+//         $pp = "80%tile";
+//     } else if ($score == 18) {
+//         $pp = "75%tile";
+//     } else if ($score == 17) {
+//         $pp = "70%tile";
+//     } else if ($score >= 15 && $score <= 16) {
+//         $pp = "65%tile";
+//     } else if ($score == 14) {
+//         $pp = "60%tile";
+//     }
+
+//     return $pp;
+// }
+
+
+function getXatScorePercentile($score)
+{
+    $score = (int) floor($score);
+    if ($score >= 51) return "99.96%tile";
+    if ($score == 50) return "99.96%tile";
+    if ($score == 49) return "99.95%tile";
+    if ($score == 48) return "99.93%tile";
+    if ($score == 47) return "99.92%tile";
+    if ($score == 46) return "99.91%tile";
+    if ($score == 45) return "99.90%tile";
+    if ($score == 44) return "99.86%tile";
+    if ($score == 43) return "99.80%tile";
+    if ($score == 42) return "99.72%tile";
+    if ($score == 41) return "99.60%tile";
+    if ($score == 40) return "99.35%tile";
+    if ($score == 39) return "99.25%tile";
+    if ($score == 38) return "99.15%tile";
+    if ($score == 37) return "99%tile";
+    if ($score == 36) return "98.70%tile";
+    if ($score == 35) return "98.30%tile";
+    if ($score == 34) return "97.90%tile";
+    if ($score == 33) return "97.50%tile";
+    if ($score == 32) return "97%tile";
+    if ($score == 31) return "96.30%tile";
+    if ($score == 30) return "95.50%tile";
+    if ($score == 29) return "94.70%tile";
+    if ($score == 28) return "93.80%tile";
+    if ($score == 27) return "92.80%tile";
+    if ($score == 26) return "91.60%tile";
+    if ($score == 25) return "90.40%tile";
+    if ($score == 24) return "88.80%tile";
+    if ($score == 23) return "87%tile";
+    if ($score == 22) return "85%tile";
+    if ($score == 21) return "83%tile";
+    if ($score == 20) return "81%tile";
+    if ($score == 19) return "79.20%tile";
+    if ($score == 18) return "77%tile";
+    if ($score == 17) return "74.50%tile";
+    if ($score == 16) return "71.50%tile";
+    if ($score == 15) return "68.50%tile";
+    return "50%tile";
 }
+
+
 
 function sendXatJson($data, $http_code = 200) {
     header('Content-type: application/json');

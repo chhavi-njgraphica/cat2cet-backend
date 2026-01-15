@@ -22,3 +22,4 @@ Route::post('xat-leads-submit',[UserXatController::class,'submit'])->name('xat-l
 
 Route::post('snap-pdf-upload',[SnapController::class,'pdfUpload'])->name('snap-pdf-upload');
 Route::post('/snap-lead-submit', [SnapController::class, 'userSubmit'])->name('snap-lead-submit');
+Route::post('/snap-manual-entry', [SnapController::class, 'manualEntry'])->name('snap-manual-entry');

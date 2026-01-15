@@ -67,4 +67,12 @@ class XatCollegeController extends Controller
             ->with('success','Data updated successfully');
     }
 
+    public function destroy(XatCollege $college)
+    {
+        $college->delete();
+
+        return redirect()->route('backend.xat-colleges.index')
+            ->withSuccess(__('Data deleted successfully.'));
+    }
+
 }
